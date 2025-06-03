@@ -791,35 +791,15 @@ function removerEncantamento() {
 function salvarFicha() {
   const dados = {};
   
-  // Campos específicos com IDs
+  // Salvar todos os campos com ID (exceto campos de imagem)
   const camposComId = document.querySelectorAll("input[id], select[id], textarea[id]");
   camposComId.forEach(campo => {
     if (campo.type !== "file") {
       dados[campo.id] = campo.value;
     }
   });
-  
-  // Campos específicos por posição/contexto
-  const inputs = document.querySelectorAll("input:not([id])");
-  const textareas = document.querySelectorAll("textarea:not([id])");
-  
-  // Nome do jogador (primeiro input)
-  if (inputs[0]) dados['nomeJogador'] = inputs[0].value;
-  // Nome do personagem (segundo input)
-  if (inputs[1]) dados['nomePersonagem'] = inputs[1].value;
-  // Vida (terceiro input)
-  if (inputs[2]) dados['vida'] = inputs[2].value;
-  
-  // Textareas por ordem
-  if (textareas[0]) dados['anotacoesHabilidade'] = textareas[0].value;
-  if (textareas[1]) dados['equipamentos'] = textareas[1].value;
-  if (textareas[2]) dados['anotacoesEncantamentos'] = textareas[2].value;
-  if (textareas[3]) dados['objetivos'] = textareas[3].value;
-  if (textareas[4]) dados['historia'] = textareas[4].value;
-  if (textareas[5]) dados['acordos'] = textareas[5].value;
-  if (textareas[6]) dados['anotacoes'] = textareas[6].value;
-  
-  // Encantamentos dinâmicos
+
+  // Salvar encantamentos separadamente
   const encantamentos = [];
   const encantBlocks = document.querySelectorAll('.encant-block');
   encantBlocks.forEach(block => {
@@ -833,58 +813,11 @@ function salvarFicha() {
     }
   });
   dados['encantamentos'] = encantamentos;
-  
+
+  // Salvar no localStorage
   localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
 }
 
-function carregarFicha() {
-  const dados = JSON.parse(localStorage.getItem("fichaPersonagem") || "{}");
-  
-  // Campos com IDs específicos
-  Object.keys(dados).forEach(chave => {
-    const campo = document.getElementById(chave);
-    if (campo && dados[chave] !== undefined) {
-      campo.value = dados[chave];
-    }
-  });
-  
-  // Campos específicos por posição
-  const inputs = document.querySelectorAll("input:not([id])");
-  const textareas = document.querySelectorAll("textarea:not([id])");
-  
-  if (dados['nomeJogador'] && inputs[0]) inputs[0].value = dados['nomeJogador'];
-  if (dados['nomePersonagem'] && inputs[1]) inputs[1].value = dados['nomePersonagem'];
-  if (dados['vida'] && inputs[2]) inputs[2].value = dados['vida'];
-  
-  if (dados['anotacoesHabilidade'] && textareas[0]) textareas[0].value = dados['anotacoesHabilidade'];
-  if (dados['equipamentos'] && textareas[1]) textareas[1].value = dados['equipamentos'];
-  if (dados['anotacoesEncantamentos'] && textareas[2]) textareas[2].value = dados['anotacoesEncantamentos'];
-  if (dados['objetivos'] && textareas[3]) textareas[3].value = dados['objetivos'];
-  if (dados['historia'] && textareas[4]) textareas[4].value = dados['historia'];
-  if (dados['acordos'] && textareas[5]) textareas[5].value = dados['acordos'];
-  if (dados['anotacoes'] && textareas[6]) textareas[6].value = dados['anotacoes'];
-  
-  // Recriar encantamentos dinâmicos
-  if (dados['encantamentos']) {
-    const container = document.getElementById("encantContainer");
-    container.innerHTML = ''; // Limpar encantamentos existentes
-    
-    dados['encantamentos'].forEach(enc => {
-      adicionarEncantamento();
-      const blocks = container.querySelectorAll('.encant-block');
-      const ultimoBlock = blocks[blocks.length - 1];
-      if (ultimoBlock) {
-        const select = ultimoBlock.querySelector('select');
-        const textarea = ultimoBlock.querySelector('textarea');
-        if (select) select.value = enc.encantamento;
-        if (textarea) textarea.value = enc.descricao;
-      }
-    });
-  }
-  
-  atualizarRE();
-  atualizarH();
-}
 
 window.addEventListener("DOMContentLoaded", () => {
   carregarFicha();
