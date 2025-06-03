@@ -741,9 +741,22 @@ function removerEncantamento() {
 }
       //pra fazer a imagemzinha aparecer☝️🤓
       function mostrarImagem(event) {
-        const Imagem = document.getElementById("imagemPersonagem");
-        Imagem.src = URL.createObjectURL(event.target.files[0]);
-        Imagem.style.display = "block";
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+         reader.onload = function(e) {
+          const imgData = e.target.result;
+          const Imagem = document.getElementById("imagemPersonagem");
+          Imagem.src = imgData;
+          Imagem.style.display = "block";
+
+          // Salvar imagem no localStorage junto com a ficha
+          const dados = JSON.parse(localStorage.getItem("fichaPersonagem") || "{}");
+          dados.imagem = imgData;
+          localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
+      };
+
+      reader.readAsDataURL(file);
       }
 
 
@@ -854,6 +867,12 @@ function carregarFicha() {
     // Atualizar valores calculados
     atualizarRE();
     atualizarH();
+    
+    if (fichaData.imagem) {
+      const imagem = document.getElementById("imagemPersonagem");
+      imagem.src = fichaData.imagem;
+      imagem.style.display = "block";
+    }
     
   } catch (err) {
     console.error("Erro ao carregar ficha:", err);
