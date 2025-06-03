@@ -788,6 +788,36 @@ function removerEncantamento() {
       }
 
 
+function salvarFicha() {
+  const campos = [
+    "nomeJogador", "nomePersonagem", "tipoCorpo", "vig", "atk", "esq", "conj", "vida",
+    "resistencia", "energia", "tipoHabilidade", "anotacoesHabilidade", "equipamentos",
+    "anotacoesEncantamentos", "objetivos", "historia", "acordos", "anotacoes"
+  ];
+
+  const dados = {};
+  campos.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) dados[id] = el.value;
+  });
+
+  // salvar encantamentos
+  const encantContainer = document.getElementById("encantContainer");
+  const encantamentos = [];
+  encantContainer.querySelectorAll(".encant-block").forEach(block => {
+    const select = block.querySelector("select");
+    const textarea = block.querySelector("textarea");
+    encantamentos.push({
+      encantamento: select.value,
+      descricao: textarea.value
+    });
+  });
+  dados.encantamentos = encantamentos;
+
+  localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
+}
+
+
 function carregarFicha() {
   const dados = localStorage.getItem("fichaPersonagem");
   if (!dados) return;
