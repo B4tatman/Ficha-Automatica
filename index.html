@@ -688,6 +688,10 @@
         "Tempestade Devastadora": {
           descricao: "Conjura uma poderosa tempestade, lançando raios e trovões, causando destruição em um raio de três ações ao redor do conjurador. Acertando todos na área (aliados inclusos)\nDano: 2d8. Realiza um teste (Conjurar) contra a D.T. dos alvos, caso passe, os atingidos perderão sua ação de padrões por uma rodada.\nGasto: 5(P.E)\nDuração: Uso",
           gasto: 5
+        },
+        "(Proprio)": {
+          descricao: "Escreva sua descrição aqui, e o gasto do encantamento.\nGasto: (P.E)\nDuração: (Tempo)",
+          gasto: 1
         }
         };
 
@@ -706,8 +710,9 @@ function adicionarEncantamento() {
   }
 
   const textarea = document.createElement("textarea");
-  textarea.readOnly = true;
-  textarea.textContent = encantamentosDisponiveis[select.value].descricao;
+  textarea.readOnly = (select.value !== "(Proprio)");
+  textarea.placeholder = "Escreva a descrição do seu encantamento...";
+  textarea.value = encantamentosDisponiveis[select.value].descricao;
 
   const botao = document.createElement("button");
   botao.textContent = "Usar Encantamento";
@@ -723,7 +728,8 @@ function adicionarEncantamento() {
   };
 
   select.onchange = () => {
-    textarea.textContent = encantamentosDisponiveis[select.value].descricao;
+    textarea.readOnly = (select.value !== "(Proprio)");
+    textarea.value = encantamentosDisponiveis[select.value].descricao;
   };
 
   block.appendChild(select);
