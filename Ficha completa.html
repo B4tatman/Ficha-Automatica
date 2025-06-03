@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ficha de Personagem - Lâmina dos Conjuradores</title>
+    <style>
+      /* Reset básico */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Times New Roman', 'Georgia', serif;
+        margin: 0;
+        padding: 30px;
+        background: 
+          radial-gradient(circle at 20% 80%, rgba(139, 69, 19, 0.15) 0%, transparent 50%),
+          radial-gradient(circle at 80% 20%, rgba(101, 67, 33, 0.15) 0%, transparent 50%),
+          linear-gradient(135deg, #f4e8d0 0%, #e8d5b7 50%, #d4c4a0 100%);
+        color: #3d2914;
+        min-height: 100vh;
+        line-height: 1.6;
+        background-attachment: fixed;
+      }
+
+      /* Efeito de papel queimado nas bordas */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        pointer-events: none;
+        background-image: 
+          radial-gradient(circle at 5% 5%, rgba(139, 69, 19, 0.3) 0%, transparent 15%),
+          radial-gradient(circle at 95% 5%, rgba(139, 69, 19, 0.3) 0%, transparent 15%),
+          radial-gradient(circle at 5% 95%, rgba(139, 69, 19, 0.3) 0%, transparent 15%),
+          radial-gradient(circle at 95% 95%, rgba(139, 69, 19, 0.3) 0%, transparent 15%);
+        z-index: -1;
+      }
+
+      /* Título principal com caligrafia antiga */
+      h1 {
+        text-align: center;
+        color: #5d3a1a;
+        font-size: 2.8em;
+        margin-bottom: 30px;
+        font-weight: normal;
+        letter-spacing: 2px;
+        text-shadow: 
+          2px 2px 0px rgba(139, 69, 19, 0.3),
+          1px 1px 10px rgba(139, 69, 19, 0.2);
+        border-bottom: 3px double #8b4513;
+        padding-bottom: 15px;
+        font-variant: small-caps;
+        position: relative;
+      }
+
+      /* Ornamentos decorativos no título */
+      h1::before, h1::after {
+        content: '❦';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8b4513;
+        font-size: 0.6em;
+        opacity: 0.7;
+      }
+
+      h1::before {
+        left: -50px;
+      }
+
+      h1::after {
+        right: -50px;
+      }
+
+      h2 {
+        margin-top: 25px;
+        color: #5d3a1a;
+        font-size: 1.4em;
+        border-bottom: 2px solid #8b4513;
+        padding-bottom: 8px;
+        margin-bottom: 18px;
+        font-variant: small-caps;
+        letter-spacing: 1px;
+        position: relative;
+      }
+
+      h2::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #8b4513, transparent);
+      }
+
+      /* Labels rústicos */
+      label {
+        display: block;
+        margin: 15px 0 8px;
+        color: #4a2c17;
+        font-weight: bold;
+        font-size: 0.95em;
+        text-shadow: 1px 1px 2px rgba(255, 248, 220, 0.8);
+        letter-spacing: 0.5px;
+      }
+
+      /* Campos de entrada com aparência de pergaminho */
+      input, select, textarea {
+        width: 100%;
+        padding: 10px 15px;
+        margin-bottom: 18px;
+        border: none;
+        border: 2px solid #8b4513;
+        border-radius: 0;
+        background: 
+          linear-gradient(135deg, #faf6f0 0%, #f0e6d6 100%);
+        color: #3d2914;
+        font-size: 1em;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        box-shadow: 
+          inset 2px 2px 5px rgba(139, 69, 19, 0.1),
+          0 1px 3px rgba(139, 69, 19, 0.2);
+        position: relative;
+      }
+
+      /* Efeito de tinta desbotada */
+      input::placeholder, textarea::placeholder {
+        color: #8b7355;
+        font-style: italic;
+        opacity: 0.7;
+      }
+
+      input:focus, select:focus, textarea:focus {
+        outline: none;
+        border-color: #654321;
+        background: 
+          linear-gradient(135deg, #fff8f0 0%, #f5ebdb 100%);
+        box-shadow: 
+          inset 2px 2px 8px rgba(139, 69, 19, 0.15),
+          0 0 10px rgba(139, 69, 19, 0.3);
+        transform: translateY(-1px);
+      }
+
+      input:hover, select:hover, textarea:hover {
+        border-color: #a0522d;
+      }
+
+      /* Campos readonly com destaque especial */
+      input[readonly] {
+        background: 
+          linear-gradient(135deg, #e8d5b7 0%, #d4c4a0 100%);
+        border-color: #8b4513;
+        color: #2f1b0c;
+        font-weight: bold;
+        text-align: center;
+        cursor: default;
+        box-shadow: 
+          inset 3px 3px 6px rgba(139, 69, 19, 0.2),
+          0 2px 4px rgba(139, 69, 19, 0.3);
+      }
+
+      /* Layout em pergaminho */
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 35px;
+        margin-top: 25px;
+      }
+
+      .col {
+        background: 
+          linear-gradient(145deg, #f7f0e8 0%, #ede0d0 100%);
+        padding: 25px;
+        border: 3px solid #8b4513;
+        border-radius: 0;
+        box-shadow: 
+          5px 5px 15px rgba(139, 69, 19, 0.3),
+          inset 0 0 20px rgba(255, 248, 220, 0.5);
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Efeito de papel antigo nas colunas */
+      .col::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        background: 
+          radial-gradient(circle at 10% 10%, rgba(139, 69, 19, 0.1) 0%, transparent 30%),
+          radial-gradient(circle at 90% 10%, rgba(139, 69, 19, 0.1) 0%, transparent 30%),
+          radial-gradient(circle at 10% 90%, rgba(139, 69, 19, 0.1) 0%, transparent 30%),
+          radial-gradient(circle at 90% 90%, rgba(139, 69, 19, 0.1) 0%, transparent 30%);
+        z-index: -1;
+      }
+
+      /* Cantos ornamentais */
+      .col::after {
+        content: '❦';
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        color: #8b4513;
+        opacity: 0.3;
+        font-size: 1.2em;
+      }
+
+      /* Descrição da habilidade como pergaminho antigo */
+      .habilidade-desc {
+        background: 
+          linear-gradient(145deg, #f0e6d6 0%, #e8d5b7 100%);
+        border: 2px solid #8b4513;
+        padding: 15px;
+        margin-bottom: 18px;
+        color: #3d2914;
+        font-family: 'Times New Roman', serif;
+        font-size: 0.95em;
+        white-space: pre-line;
+        line-height: 1.5;
+        box-shadow: 
+          inset 2px 2px 8px rgba(139, 69, 19, 0.15),
+          2px 2px 8px rgba(139, 69, 19, 0.2);
+        font-style: italic;
+        text-shadow: 1px 1px 2px rgba(255, 248, 220, 0.8);
+      }
+
+      /* Container de encantamentos */
+      #encantContainer {
+        margin-top: 20px;
+      }
+
+      .encant-block {
+        background: 
+          linear-gradient(145deg, #f5ebdb 0%, #ede0d0 100%);
+        padding: 18px;
+        margin-bottom: 15px;
+        border: 2px solid #8b4513;
+        box-shadow: 
+          3px 3px 10px rgba(139, 69, 19, 0.25),
+          inset 0 0 15px rgba(255, 248, 220, 0.3);
+        position: relative;
+      }
+
+      .encant-block::before {
+        content: '';
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border: 1px dashed #8b4513;
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      .encant-block select,
+      .encant-block textarea {
+        background: 
+          linear-gradient(135deg, #faf6f0 0%, #f0e6d6 100%);
+        color: #3d2914;
+        border: 2px solid #8b4513;
+        margin-top: 8px;
+      }
+
+      /* Botões rústicos com aparência medieval */
+      .encant-block button, button {
+        background: 
+          linear-gradient(145deg, #8b4513 0%, #654321 100%);
+        color: #f5f0e8;
+        border: 2px solid #654321;
+        cursor: pointer;
+        padding: 10px 20px;
+        margin-top: 12px;
+        font-weight: bold;
+        font-family: inherit;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        letter-spacing: 1px;
+        box-shadow: 
+          2px 2px 5px rgba(139, 69, 19, 0.4),
+          inset 1px 1px 3px rgba(255, 248, 220, 0.2);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .encant-block button:hover, button:hover {
+        background: 
+          linear-gradient(145deg, #654321 0%, #4a2c17 100%);
+        border-color: #4a2c17;
+        transform: translateY(-2px);
+        box-shadow: 
+          3px 3px 8px rgba(139, 69, 19, 0.5),
+          inset 1px 1px 4px rgba(255, 248, 220, 0.3);
+      }
+
+      .encant-block button:active, button:active {
+        transform: translateY(0);
+        box-shadow: 
+          1px 1px 3px rgba(139, 69, 19, 0.6),
+          inset 2px 2px 5px rgba(139, 69, 19, 0.2);
+      }
+
+      /* Estados desabilitados */
+      .disabled {
+        background: #8b7355 !important;
+        color: #d4c4a0 !important;
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        border-color: #6b5545 !important;
+      }
+
+      .disabled:hover {
+        transform: none !important;
+      }
+
+      /* Textareas */
+      textarea {
+        resize: vertical;
+        min-height: 80px;
+        font-family: inherit;
+      }
+
+      /* Campos numéricos */
+      input[type="number"] {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      /* Responsividade */
+      @media (max-width: 768px) {
+        .row {
+          grid-template-columns: 1fr;
+          gap: 25px;
+        }
+        
+        .col {
+          padding: 20px;
+        }
+        
+        h1 {
+          font-size: 2.2em;
+          margin-bottom: 25px;
+        }
+        
+        h1::before, h1::after {
+          display: none;
+        }
+        
+        body {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 15px;
+        }
+        
+        .col {
+          padding: 15px;
+        }
+        
+        h1 {
+          font-size: 1.8em;
+        }
+        
+        input, select, textarea {
+          padding: 8px 12px;
+        }
+      }
+
+      /* Scrollbar temática */
+      ::-webkit-scrollbar {
+        width: 12px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f0e6d6;
+        border: 1px solid #8b4513;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: 
+          linear-gradient(145deg, #8b4513 0%, #654321 100%);
+        border: 1px solid #654321;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: 
+          linear-gradient(145deg, #654321 0%, #4a2c17 100%);
+      }
+
+      /* Seleção de texto */
+      ::selection {
+        background: rgba(139, 69, 19, 0.3);
+        color: #2f1b0c;
+      }
+
+      /* Efeito sutil de manchas de tinta */
+      body {
+        background-image: 
+          radial-gradient(circle at 15% 25%, rgba(139, 69, 19, 0.05) 0%, transparent 15%),
+          radial-gradient(circle at 85% 75%, rgba(101, 67, 33, 0.05) 0%, transparent 15%),
+          radial-gradient(circle at 45% 85%, rgba(139, 69, 19, 0.03) 0%, transparent 12%),
+          linear-gradient(135deg, #f4e8d0 0%, #e8d5b7 50%, #d4c4a0 100%);
+      }
+    </style>
+  <body>
+    <h1>Ficha de Personagem</h1>
+    <div class="row">
+      <div class="col">
+        <label>Nome do Jogador</label>
+        <input type="text" />
+
+        <label>Nome do Personagem</label>
+        <input type="text" />
+
+        <label>Tipo de Corpo</label>
+        <select id="tipoCorpo" onchange="atualizarRE()">
+          <option value="equilibrado">Equilibrado</option>
+          <option value="resistente">Resistente</option>
+          <option value="energetico">Energético</option>
+        </select>
+
+        <label>Vigor</label>
+        <input type="number" id="vig" value="0" oninput="atualizarRE()" />
+
+        <label>Ataque</label>
+        <input type="number" id="atk" value="0" />
+
+        <label>Esquiva</label>
+        <input type="number" id="esq" value="0" />
+
+        <label>Conjurar</label>
+        <input type="number" id="conj" value="0" oninput="atualizarRE()" />
+
+        <label>Vida</label>
+        <input type="text" value="10/10" />
+        <div class="Re-En">
+          <label>Resistência</label>
+          <input type="text" id="resistencia" />
+
+          <label>Energia</label>
+          <input type="text" id="energia" />
+        </div>
+
+        <label>Habilidade</label>
+        <select id="tipoHabilidade" onchange="atualizarH()">
+          <option value="CLIQUE AQUI PARA SELECIONAR!">CLIQUE AQUI PARA SELECIONAR!</option>
+          <option value="Curandeiro">Curandeiro</option>
+          <option value="Caçador">Caçador</option>
+          <option value="Durão">Durão</option>
+          <option value="Porradeiro">Porradeiro</option>
+          <option value="Conjurador">Conjurador</option>
+          <option value="Briguento">Briguento</option>
+          <option value="Sentinela">Sentinela</option>
+        </select>
+        <label>Descrição-Habilidade</label>
+        <div class="habilidade-desc" id="habilidadeDesc">Cura 1d8+2 de Resistência<br>Usos: 3/3 (Ação de movimento recupeara +1)</div>
+        <textarea rows="1" placeholder="Anotações sobre Habilidade"></textarea>
+
+        <label>Equipamentos (armas)</label>
+        <textarea rows="3" placeholder="Ex: Lâmina 1d10+2, Lâmina 1d6+1"></textarea>
+
+        <label>Encantamentos</label>
+          <div id="encantContainer"></div>
+            <div style="margin-top: 10px;">
+           <button onclick="adicionarEncantamento()">+ Encantamento</button>
+           <button onclick="removerEncantamento()">– Encantamento</button>
+          </div>
+        <textarea rows="6" placeholder="Anotações sobre Encantamentos"></textarea>
+
+      </div>
+      <div class="col">
+        <label>Imagem do Personagem</label>
+        <input type="file" accept="image/*" onchange="mostrarImagem(event)">
+        <div id="previewImagem" style="margin-bottom: 20px;">
+          <img id="imagemPersonagem" src="" style="max-width: 100%; border: 2px solid #8b4513; padding: 5px; display: none;">
+        </div>
+
+        <label>Objetivos</label>
+        <textarea rows="10"></textarea>
+
+        <label>História</label>
+        <textarea rows="10"></textarea>
+
+        <label>Acordos</label>
+        <textarea rows="10"></textarea>
+
+        <label>Anotações</label>
+        <textarea rows="10"></textarea>
+
+        <!--Botão de salvar e de limpar(obs esse negocio de comentario é horrivel)-->
+        <button onclick="limparFicha()">Limpar Ficha</button>
+        <button onclick="exportarFicha()">Exportar alterações</button>
+        <input type="file" id="importarInput" accept=".json" style="display:none" onchange="importarFicha(event)">
+        <button onclick="document.getElementById('importarInput').click()">Importar Ficha</button>
+
+      </div>
+    </div>
+
+    <script>
+      // Função para atualizar Resistência e Energia
+      function atualizarRE() {
+        const vig = parseInt(document.getElementById("vig").value) || 0;
+        const conj = parseInt(document.getElementById("conj").value) || 0;
+        const tipo = document.getElementById("tipoCorpo").value;
+
+        let resistencia = 0;
+        let energia = 0;
+
+        switch (tipo) {
+          case "equilibrado":
+            resistencia = (vig * 10) + 5;
+            energia = (vig + conj * 2) * 3 + 5;
+            break;
+          case "resistente":
+            resistencia = (vig * 15) + 5;
+            energia = (vig + conj) * 3 + 5;
+            break;
+          case "energetico":
+            resistencia = (vig * 8) + 5;
+            energia = (vig + conj * 3) * 4 + 5;
+            break;
+        }
+
+        document.getElementById("resistencia").value = `${resistencia}/${resistencia}`;
+        document.getElementById("energia").value = `${energia}/${energia}`;
+      }
+
+  // Função para atualizar a descrição da habilidade
+      function atualizarH() {
+        const habilidade = document.getElementById("tipoHabilidade").value;
+        const descElement = document.getElementById("habilidadeDesc");
+
+        const descricoes = {
+          "CLIQUE AQUI PARA SELECIONAR!": 'A descrição e funcionamento da habilidade apareceram aqui!☝️🤓\nVocê pode tambem ler "Regras de Habilidades" no sistema',
+          "Curandeiro":  "Cura 1d8+2 de Resistência\nUsos: 3/3 (Ação de movimento para recarregar +1)\nFacilita retirar aliados do Estado Crítico",
+
+          "Caçador": "+1d8 de dano furtivo contra alvos desavisados\nAção Padrão para entrar em furtividade\nFurtividade acaba ao atacar",
+          
+          "Durão": "-2 de dano ao ser atacado\nPode ser acumulado com itens e encantamentos",
+          
+          "Porradeiro": "1d6 de dano adicional no corpo a corpo\nAplica-se apenas a ataques desarmados\nPode ser acumulado com encantamentos",
+          
+          "Conjurador": "+5 de Energia máxima\n+1 Encantamento adicional",
+          
+          "Briguento": "Pode usar ação de movimento para atacar\nUsos: 3/3 por combate\nUma vez por rodada",
+          
+          "Sentinela": "Vantagem no próximo ataque quando aliado\npróximo (2 ações) for atacado\nUma vez por rodada"
+        };
+
+        descElement.textContent = descricoes[habilidade] || "Descrição não encontrada";
+        
+
+      } 
+
+      //encantamentos
+      const encantamentosDisponiveis = {
+        "CLIQUE AQUI PARA SELECIONAR!": {
+          descricao: "A descrição, o gasto, e a duração, aparecerão aqui ☝️🤓.",
+          gasto: 0
+        },
+        "Afiação": {
+          descricao: "(+3) ou (+6) de dano em uma lâmina\nGasto: 2 / 5 P.E.\nDuração: cena",
+          gasto: 2
+        },
+        "Picotar": {
+          descricao: "Pequenos cortes que dilaceram um alvo. (Ataca usando Ataque ou Conjurar)\nDano: 1d4+(1d4 por ponto de energia)\nGasto: 2(P.E)+1(por ponto adicional. Máximo igual ao valor de ataque)\nDuração: Uso",
+          gasto: 2
+        },
+        "Ocultar/conjurar Lâmina": {
+          descricao: "Transforma sua lâmina em um encantamento, fazendo com que, a pegue como uma ação livre\nGasto: 1(P.E)\nDuração: Uso",
+          gasto: 1
+        },
+        "Corrupção": {
+          descricao: "envenena uma lâmina, concedendo +1d6 (de Dano), causando dano continuo por 1d4+1 rodadas ao acertar o alvo.\nGasto: 3(P.E)\nDuração: Cena",
+          gasto: 3
+        },
+        "Combustão": {
+          descricao: "Uma flecha de fogo, que queima tudo que acertar. (Ataca usando Conjurar)\nDano: 2d4 (+1d4 por toda vez que acertar um alvo, se errar, a contagem recomeça)\nGasto: 2(P.E)\nDuração: Uso",
+          gasto: 2
+        },
+        "Oportunista": {
+          descricao: "faz com que, dois aliados possam atacar no seu lugar, eles atacam usando 1d20+(metade do seu conjurar)\nGasto: 3(P.E)+(ação completa)\nDuração: uso",
+          gasto: 3
+        },
+        "Fortalecer": {
+          descricao: "concede a si mesmo ou a um aliado temporariamente concedendo resistência adicional. 8+(conjurar) de Resistência temporária.\nGasto: 3(P.E)\nDuração: cena",
+          gasto: 3
+        },
+        "Restauração": {
+          descricao: "permite que você ou um aliado recupere 2d6 de Resistência.\nGasto: 2(P.E)\nDuração: uso",
+          gasto: 2
+        },
+        "Sangue Quente": {
+          descricao: "Enfurece a si ou a um alvo, fazendo o sangue dele borbulhar, concedendo Vantagem teste de Ataque, e +1d4+1 (Dano por ataque)\nSe não atacar ninguém, sofre 1d4 de dano.\nGasto: 3(P.E)+(1 Vida)\nDuração: Combate",
+          gasto: 3
+        },
+        "Conceito da Lâmina": {
+          descricao: "Transforma parte do seu corpo em uma \"lâmina\"\n1d8+2 (de Dano)\nGasto: 1(P.E)\nDuração: Cena",
+          gasto: 1
+        },
+        "Pesadelo lúcido": {
+          descricao: "conjura uma criatura/entidade para atacar o seu alvo em seu lugar\n4d8+2 (de Dano)\nGasto: 3(P.E)+(vida:1)\nDuração: uso",
+          gasto: 3
+        },
+        "Aprisionar": {
+          descricao: "Aprisiona um alvo, restringindo seu movimento.\nSe passar no teste de conjurar, contra a D.T do alvo, o tal não conseguiria se descolar no próximo turno, após isso ele se moverá na metade do deslocamento. O Alvo também recebe -2 D.T.\nGasto: 3(P.E)\nDuração: 1d6",
+          gasto: 3
+        },
+        "Espinhos": {
+          descricao: "caso seja atacado, o atacante sofre 1d4 (de Dano)\nGasto: 3(P.E)\nDuração: Combate",
+          gasto: 3
+        },
+        "Sumiço": {
+          descricao: "Este encantamento permite que você transforme a furtividade em uma ação de movimento ou em uma ação livre.\nGasto: 3 / 5\nDuração: Cena",
+          gasto: 3
+        },
+        "Vestir Ilusão": {
+          descricao: "Esse encantamento permite que a aparência seja distorcida, permitindo até mesmo se tornar outra pessoa.\n(em termos mecânicos, os atributos, permanecem os mesmos)\nGasto: 2(P.E)\nDuração: Cena",
+          gasto: 2
+        },
+        "Fluxo energético": {
+          descricao: "Este encantamento acelera o movimento do conjurador, permitindo que uma ação de movimento valha por duas.\nTambém concede vantagem nos testes de esquiva.\nGasto: 5(P.E)\nDuração: Cena (efeito acaba, se não conseguir se movimentar).",
+          gasto: 5
+        },
+        "Afugentar": {
+          descricao: "Esse encantamento permite que você se mova rapidamente, deslocando-se o equivalente a 3 ações de movimento em uma única ação. Você também pode mover um aliado ou inimigo.(+1 / 2 P.E para mover um aliado / inimigo)\nGasto: 2(P.E)\nDuração: Uso",
+          gasto: 2
+        },
+        "Encarando o Abismo": {
+          descricao: "Usando um teste de Vigor contra a D.T, prende a atenção do alvo o forçando a somente te atacar.\n(Concede vantagem nos testes de esquiva)\nGasto: 5(P.E)\nDuração: 1d4",
+          gasto: 5
+        },
+        "Decadência": {
+          descricao: "Apodrece um alvo de dentro pra fora. (Ataca usando Conjurar)\nDano: 2d8+2\nGasto: 3(P.E)\nDuração: Uso",
+          gasto: 3
+        },
+        "Mercenário": {
+          descricao: "Permite conjurar um encantamento como ação de movimento.\nGasto 3(P.E)\nDuração: Uso",
+          gasto: 3
+        },
+        "Carniceiro": {
+          descricao: "Adiciona 1d8 de dano em um encantamento (é uma Ação livre)\nGasto: 3(P.E)\nDuração: Uso",
+          gasto: 3
+        },
+        "Boneco de pano": {
+          descricao: "Cria uma pequena versão de seu alvo, toda vez que o alvo for atacado, a miniatura acumula 1d6 (de dano.)\nO boneco pode ser esmagado causando todo o dano acumulado no alvo original.\nGasto: 5(P.E)+(ação completa)\nDuração: 3 Rodadas",
+          gasto: 5
+        },
+        "Conjurar Algoz": {
+          descricao: "Invoca uma entidade, que ataque em troca de um sacrifício\nDano: 10d12+5\nGasto: 8(Vida)\nDuração: Uso",
+          gasto: 8
+        },
+        "Invocar Criatura": {
+          descricao: "Trás uma criatura para a realidade, em troca de algo daqui (ou seja, pontos de vida) a criatura não é de fato um aliado.\nGasto: 5(P.E)+(2 vida)\nDuração: combate",
+          gasto: 5
+        },
+        "Duplicata": {
+          descricao: "Invoca um clone, com seus equipamentos e metade dos seus atributos. (Ele só tem a ação padrão)\nGasto: 5(P.E)+2(vida)\nDuração: Combate",
+          gasto: 5
+        },
+        "Otimização": {
+          descricao: "permite rolar novamente um teste, como também dados de dano.\nGasto: 2(P.E)+(1 por cada vez usado no mesmo combate, custo máximo 5 P.E.)\nDuração: Uso",
+          gasto: 2
+        },
+        "Absorção": {
+          descricao: "Permite conjurar uma barreira de proteção, que absorve o dano de um ataque recebido.\nA barreira tem (5+Conjurar) de vida\nGasto: 3(P.E)\nDuração: Reação (não poderá esquivar)",
+          gasto: 3
+        },
+        "Não desobedeça": {
+          descricao: "Todos a sua frente (em uma distância de 3 ações) escutam a sua voz ecoar dando um comando, caso desobedeçam são castigados.\nO comando pode ser por exemplo \"não se mova\" ou \"fique em silêncio\" até mesmo \"corra\" (a ordem precisa ser possível de ser realizada)\nDano: 2d4 de dano (toda vez que descomprimir a ordem)\nGasto: 3(P.E)\nDuração: 1d6",
+          gasto: 3
+        },
+        "Tempestade Devastadora": {
+          descricao: "Conjura uma poderosa tempestade, lançando raios e trovões, causando destruição em um raio de três ações ao redor do conjurador. Acertando todos na área (aliados inclusos)\nDano: 2d8. Realiza um teste (Conjurar) contra a D.T. dos alvos, caso passe, os atingidos perderão sua ação de padrões por uma rodada.\nGasto: 5(P.E)\nDuração: Uso",
+          gasto: 5
+        }
+        };
+
+function adicionarEncantamento() {
+  const container = document.getElementById("encantContainer");
+
+  const block = document.createElement("div");
+  block.className = "encant-block";
+
+  const select = document.createElement("select");
+  for (const key in encantamentosDisponiveis) {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = key;
+    select.appendChild(option);
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.readOnly = true;
+  textarea.textContent = encantamentosDisponiveis[select.value].descricao;
+
+  const botao = document.createElement("button");
+  botao.textContent = "Usar Encantamento";
+  botao.onclick = () => {
+    const gasto = encantamentosDisponiveis[select.value].gasto;
+    let energiaAtual = document.getElementById("energia").value.split("/").map(Number);
+    if (energiaAtual[0] >= gasto) {
+      energiaAtual[0] -= gasto;
+      document.getElementById("energia").value = `${energiaAtual[0]}/${energiaAtual[1]}`;
+    } else {
+      alert("ACABOU A ENERGIA!💀");
+    }
+  };
+
+  select.onchange = () => {
+    textarea.textContent = encantamentosDisponiveis[select.value].descricao;
+  };
+
+  block.appendChild(select);
+  block.appendChild(textarea);
+  block.appendChild(botao);
+
+  container.appendChild(block);
+}
+
+function removerEncantamento() {
+  const container = document.getElementById("encantContainer");
+  if (container.lastElementChild) {
+    container.removeChild(container.lastElementChild);
+  }
+}
+      //pra fazer a imagemzinha aparecer☝️🤓
+      function mostrarImagem(event) {
+        const Imagem = document.getElementById("imagemPersonagem");
+        Imagem.src = URL.createObjectURL(event.target.files[0]);
+        Imagem.style.display = "block";
+      }
+
+
+      //botões de limpar e salvar
+      function limparFicha() {
+        if (confirm("Você tem certeza que quer apagar todos os dados da Ficha?🧐\nRecomendamos fortemente que faça uma copia da Ficha.")) {
+          localStorage.removeItem("fichaPersonagem");
+          location.reload();
+        }
+      }
+      function exportarFicha() {
+        const dados = localStorage.getItem("fichaPersonagem")
+        if (!dados) {
+          alert("Nenhum dado encontrado para exportar.🤔")
+          return;
+        }
+        const blob = new Blob([dados], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "ficha_personagem.json";
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function importarFicha(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          try {
+            const dados = JSON.parse(e.target.result);
+            localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
+            alert("Ficha importada com sucesso!☝️🤓\nRecarregando...");
+            location.reload();
+          } catch (err) {
+            alert("Erro ao importar ficha: arquivo inválido.🤨");
+          }
+        };
+        reader.readAsText(file);
+      }
+
+
+function salvarFicha() {
+  const campos = document.querySelectorAll("input, select, textarea");
+  const dados = {};
+  campos.forEach(campo => {
+    if (campo.type === "file") return;
+    const chave = campo.id || campo.placeholder || campo.name || campo.labels?.[0]?.textContent || campo.outerHTML;
+    dados[chave] = campo.value;
+  });
+  localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
+}
+
+function carregarFicha() {
+  const dados = JSON.parse(localStorage.getItem("fichaPersonagem") || "{}");
+  const campos = document.querySelectorAll("input, select, textarea");
+  campos.forEach(campo => {
+    if (campo.type === "file") return;
+    const chave = campo.id || campo.placeholder || campo.name || campo.labels?.[0]?.textContent || campo.outerHTML;
+    if (dados[chave] !== undefined) {
+      campo.value = dados[chave];
+    }
+  });
+  atualizarRE();
+  atualizarH();
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  carregarFicha();
+  const campos = document.querySelectorAll("input, select, textarea");
+  campos.forEach(campo => {
+    campo.addEventListener("input", salvarFicha);
+    campo.addEventListener("change", salvarFicha);
+  });
+});
+
+    </script>
+
+  </body>
+</html>
