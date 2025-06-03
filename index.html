@@ -788,36 +788,47 @@ function removerEncantamento() {
       }
 
 
-function salvarFicha() {
-  const dados = {};
+function carregarFicha() {
+  const dados = localStorage.getItem("fichaPersonagem");
+  if (!dados) return;
   
-  // Salvar todos os campos com ID (exceto campos de imagem)
-  const camposComId = document.querySelectorAll("input[id], select[id], textarea[id]");
-  camposComId.forEach(campo => {
-    if (campo.type !== "file") {
-      dados[campo.id] = campo.value;
+  try {
+    const fichaData = JSON.parse(dados);
+    
+    // Carregar campos básicos
+    for (const [id, valor] of Object.entries(fichaData)) {
+      const elemento = document.getElementById(id);
+      if (elemento && id !== 'encantamentos') {
+        elemento.value = valor;
+      }
     }
-  });
-
-  // Salvar encantamentos separadamente
-  const encantamentos = [];
-  const encantBlocks = document.querySelectorAll('.encant-block');
-  encantBlocks.forEach(block => {
-    const select = block.querySelector('select');
-    const textarea = block.querySelector('textarea');
-    if (select && textarea) {
-      encantamentos.push({
-        encantamento: select.value,
-        descricao: textarea.value
+    
+    // Carregar encantamentos
+    if (fichaData.encantamentos) {
+      const container = document.getElementById("encantContainer");
+      container.innerHTML = ""; // Limpar encantamentos existentes
+      
+      fichaData.encantamentos.forEach(enc => {
+        adicionarEncantamento();
+        const ultimoBlock = container.lastElementChild;
+        const select = ultimoBlock.querySelector('select');
+        const textarea = ultimoBlock.querySelector('textarea');
+        
+        if (select && textarea) {
+          select.value = enc.encantamento;
+          textarea.value = enc.descricao;
+        }
       });
     }
-  });
-  dados['encantamentos'] = encantamentos;
-
-  // Salvar no localStorage
-  localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
+    
+    // Atualizar valores calculados
+    atualizarRE();
+    atualizarH();
+    
+  } catch (err) {
+    console.error("Erro ao carregar ficha:", err);
+  }
 }
-
 
 window.addEventListener("DOMContentLoaded", () => {
   carregarFicha();
