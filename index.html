@@ -502,12 +502,39 @@
         <label>Anotações</label>
         <textarea id="anotacoes" rows="10"></textarea>
 
+        <!--Botão dos Dados-->
+        <div id="rolagemDados" style="margin-top: 30px;"></div>
+          <h2 style="font-size: 1.2em; color: #5d3a1a;">🎲 Rolar Dados</h2>
+          <button onclick="rolarDado(20)">🎲 1d20</button>
+          <button onclick="rolarDado(8)">🎲 1d8</button>
+          <button onclick="rolarDado(6)">🎲 1d6</button>
+          <div id="resultadoDado" style="
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(145deg, #f0e6d6 0%, #e8d5b7 100%);
+            border: 2px solid #8b4513;
+            box-shadow: inset 2px 2px 8px rgba(139, 69, 19, 0.15), 2px 2px 8px rgba(139, 69, 19, 0.2);
+            color: #3d2914;
+            font-size: 1.4em;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            text-align: center;
+          ">Clique em um dado acima ☝️</div>
+        </div>
+
+
         <!--Botão de salvar e de limpar(obs esse negocio de comentario é horrivel)-->
         <button onclick="limparFicha()">Limpar Ficha</button>
         <button onclick="exportarFicha()">Exportar alterações</button>
         <input type="file" id="importarInput" accept=".json" style="display:none" onchange="importarFicha(event)">
         <button onclick="document.getElementById('importarInput').click()">Importar Ficha</button>
 
+
+        <!--Para abrir o sistema em pdf-->
+        <a href="📋Lâmina dos Conjuradores - Sistema RPG 🧊.pdf" target="_blank">
+          <button>📖 Abrir Sistema (PDF)</button>
+        </a>
+        
       </div>
     </div>
 
@@ -894,6 +921,15 @@ window.addEventListener("DOMContentLoaded", () => {
     campo.addEventListener("change", salvarFicha);
   });
 });
+
+
+      // Função para rolar dados
+      function rolarDado(lados) {
+  const resultado = Math.floor(Math.random() * lados) + 1;
+  const resultadoEl = document.getElementById("resultadoDado");
+  resultadoEl.textContent = `🎯 Resultado do 1d${lados}: ${resultado}`;
+}
+
 
     </script>
 
