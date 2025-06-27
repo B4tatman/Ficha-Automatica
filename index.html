@@ -863,6 +863,12 @@ function salvarFicha() {
   });
   dados.encantamentos = encantamentos;
 
+  // salvar imagem
+  const imagem = document.getElementById("imagemPersonagem").src;
+  if (imagem && imagem.startsWith("data:image")) {
+    dados.imagem = imagem;
+  }
+
   localStorage.setItem("fichaPersonagem", JSON.stringify(dados));
 }
 
