@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ficha de Personagem - Lâmina dos Conjuradores</title>
-    <style>
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ficha de Personagem - Lâmina dos Conjuradores</title>
+<style>
       /* Reset básico */
       * {
         box-sizing: border-box;
@@ -417,100 +418,83 @@
           linear-gradient(135deg, #f4e8d0 0%, #e8d5b7 50%, #d4c4a0 100%);
       }
     </style>
-  <body>
-    <h1>Ficha de Personagem</h1>
-    <div class="row">
-      <div class="col">
-        <label>Nome do Jogador</label>
-        <input type="text" id="nomeJogador"/>
-
-        <label>Nome do Personagem</label>
-        <input type="text" id="nomePersonagem"/>
-
-        <label>Tipo de Corpo</label>
-        <select id="tipoCorpo" onchange="atualizarRE()">
-          <option value="equilibrado">Equilibrado</option>
-          <option value="resistente">Resistente</option>
-          <option value="energetico">Energético</option>
-        </select>
-
-        <label>Vigor</label>
-        <input type="number" id="vig" value="0" oninput="atualizarRE()" />
-
-        <label>Ataque</label>
-        <input type="number" id="atk" value="0" />
-
-        <label>Esquiva</label>
-        <input type="number" id="esq" value="0" />
-
-        <label>Conjurar</label>
-        <input type="number" id="conj" value="0" oninput="atualizarRE()" />
-
-        <label>Vida</label>
-        <input type="text" id="vida" value="10/10" />
-        <div class="Re-En">
-          <label>Resistência</label>
-          <input type="text" id="resistencia" />
-
-          <label>Energia</label>
-          <input type="text" id="energia" />
-        </div>
-
-        <label>Habilidade</label>
-        <select id="tipoHabilidade" onchange="atualizarH()">
-          <option value="CLIQUE AQUI PARA SELECIONAR!">CLIQUE AQUI PARA SELECIONAR!</option>
-          <option value="Curandeiro">Curandeiro</option>
-          <option value="Caçador">Caçador</option>
-          <option value="Durão">Durão</option>
-          <option value="Porradeiro">Porradeiro</option>
-          <option value="Conjurador">Conjurador</option>
-          <option value="Briguento">Briguento</option>
-          <option value="Sentinela">Sentinela</option>
-        </select>
-        <label>Descrição-Habilidade</label>
-        <div class="habilidade-desc" id="habilidadeDesc">A descrição e funcionamento da habilidade apareceram aqui!☝️🤓<br>Você pode também ler "Regras de Habilidades" no sistema</div>
-        <textarea id="anotacoesHabilidade" rows="1" placeholder="Anotações sobre Habilidade"></textarea>
-
-        <label>Equipamentos (armas)</label>
-        <textarea id="equipamentos" rows="3" placeholder="Ex: Lâmina 1d10+2, Lâmina 1d6+1"></textarea>
-
-        <label>Encantamentos</label>
-          <div id="encantContainer"></div>
-            <div style="margin-top: 10px;">
-           <button onclick="adicionarEncantamento()">+ Encantamento</button>
-           <button onclick="removerEncantamento()">– Encantamento</button>
-          </div>
-        <textarea id="anotacoesEncantamentos" rows="6" placeholder="Anotações sobre Encantamentos"></textarea>
-
-      </div>
-      <div class="col">
-        <label>Imagem do Personagem</label>
-        <input type="file" accept="image/*" onchange="mostrarImagem(event)">
-        <div id="previewImagem" style="margin-bottom: 20px;">
-          <img id="imagemPersonagem" src="" style="max-width: 100%; border: 2px solid #8b4513; padding: 5px; display: none;">
-        </div>
-
-        <label>Objetivos</label>
-        <textarea id="objetivos" rows="10"></textarea>
-
-        <label>História</label>
-        <textarea id="historia" rows="10"></textarea>
-
-        <label>Acordos</label>
-        <textarea id="acordos" rows="10"></textarea>
-
-        <label>Anotações</label>
-        <textarea id="anotacoes" rows="10"></textarea>
-
-        <!--Botão dos Dados-->
-        <div id="rolagemDados" style="margin-top: 30px;"></div>
-          <h2 style="font-size: 1.2em; color: #5d3a1a;">🎲 Rolar Dados</h2>
-          <button onclick="rolarDado(20)">🎲 1d20</button>
-          <button onclick="rolarDado(12)">🎲 1d12</button>
-          <button onclick="rolarDado(8)">🎲 1d8</button>
-          <button onclick="rolarDado(6)">🎲 1d6</button>
-          <button onclick="rolarDado(4)">🎲 1d4</button>
-          <div id="resultadoDado" style="
+<body>
+<h1>Ficha de Personagem</h1>
+<div class="row">
+<div class="col">
+<label>Nome do Jogador</label>
+<input id="nomeJogador" type="text"/>
+<label>Nome do Personagem</label>
+<input id="nomePersonagem" type="text"/>
+<label>Tipo de Corpo</label>
+<select id="tipoCorpo" onchange="atualizarRE()">
+<option value="equilibrado">Equilibrado</option>
+<option value="resistente">Resistente</option>
+<option value="energetico">Energético</option>
+</select>
+<label>Vigor</label>
+<input id="vig" oninput="atualizarRE()" type="number" value="0"/>
+<label>Ataque</label>
+<input id="atk" type="number" value="0"/>
+<label>Esquiva</label>
+<input id="esq" type="number" value="0"/>
+<label>Conjurar</label>
+<input id="conj" oninput="atualizarRE()" type="number" value="0"/>
+<label>Vida</label>
+<input id="vida" type="text" value="10/10"/>
+<div class="Re-En">
+<label>Resistência</label>
+<input id="resistencia" type="text"/>
+<label>Energia</label>
+<input id="energia" type="text"/>
+</div>
+<label>Habilidade</label>
+<select id="tipoHabilidade" onchange="atualizarH()">
+<option value="CLIQUE AQUI PARA SELECIONAR!">CLIQUE AQUI PARA SELECIONAR!</option>
+<option value="Curandeiro">Curandeiro</option>
+<option value="Caçador">Caçador</option>
+<option value="Durão">Durão</option>
+<option value="Porradeiro">Porradeiro</option>
+<option value="Conjurador">Conjurador</option>
+<option value="Briguento">Briguento</option>
+<option value="Sentinela">Sentinela</option>
+</select>
+<label>Descrição-Habilidade</label>
+<div class="habilidade-desc" id="habilidadeDesc">A descrição e funcionamento da habilidade apareceram aqui!☝️🤓<br/>Você pode também ler "Regras de Habilidades" no sistema</div>
+<textarea id="anotacoesHabilidade" placeholder="Anotações sobre Habilidade" rows="1"></textarea>
+<label>Equipamentos (armas)</label>
+<textarea id="equipamentos" placeholder="Ex: Lâmina 1d10+2, Lâmina 1d6+1" rows="3"></textarea>
+<label>Encantamentos</label>
+<div id="encantContainer"></div>
+<div style="margin-top: 10px;">
+<button onclick="adicionarEncantamento()">+ Encantamento</button>
+<button onclick="removerEncantamento()">– Encantamento</button>
+</div>
+<textarea id="anotacoesEncantamentos" placeholder="Anotações sobre Encantamentos" rows="6"></textarea>
+</div>
+<div class="col">
+<label>Imagem do Personagem</label>
+<input accept="image/*" onchange="mostrarImagem(event)" type="file"/>
+<div id="previewImagem" style="margin-bottom: 20px;">
+<img id="imagemPersonagem" src="" style="max-width: 100%; border: 2px solid #8b4513; padding: 5px; display: none;"/>
+</div>
+<label>Objetivos</label>
+<textarea id="objetivos" rows="10"></textarea>
+<label>História</label>
+<textarea id="historia" rows="10"></textarea>
+<label>Acordos</label>
+<textarea id="acordos" rows="10"></textarea>
+<label>Anotações</label>
+<textarea id="anotacoes" rows="10"></textarea>
+<!--Botão dos Dados-->
+<div id="rolagemDados" style="margin-top: 30px;"></div>
+<h2 style="font-size: 1.2em; color: #5d3a1a;">🎲 Rolar Dados</h2>
+<button onclick="rolarDado(20)">🎲 1d20</button>
+<button onclick="rolarDado(12)">🎲 1d12</button>
+<button onclick="rolarDado(8)">🎲 1d8</button>
+<button onclick="rolarDado(6)">🎲 1d6</button>
+<button onclick="rolarDado(4)">🎲 1d4</button>
+<div id="resultadoDado" style="
             margin-top: 15px;
             padding: 15px;
             background: linear-gradient(145deg, #f0e6d6 0%, #e8d5b7 100%);
@@ -522,25 +506,19 @@
             font-style: bold;
             text-align: center;
           ">Clique em um dado acima ☝️🤓</div>
-        </div>
+</div>
+<!--Botão de salvar e de limpar(obs esse negocio de comentario é horrivel)-->
+<button onclick="limparFicha()">Limpar Ficha</button>
+<button onclick="exportarFicha()">Salvar alterações</button>
+<input accept=".json" id="importarInput" onchange="importarFicha(event)" style="display:none" type="file"/>
+<button onclick="document.getElementById('importarInput').click()">Importar Ficha</button>
+<!--Para abrir o sistema em pdf-->
+<a href="📋Lâmina dos Conjuradores - Sistema RPG 🎲.pdf" style="text-decoration: none;" target="_blank">
+<button style="margin-top: 10px;">📖 Abrir Sistema (PDF)</button>
+</a>
+</div>
 
-
-        <!--Botão de salvar e de limpar(obs esse negocio de comentario é horrivel)-->
-        <button onclick="limparFicha()">Limpar Ficha</button>
-        <button onclick="exportarFicha()">Salvar alterações</button>
-        <input type="file" id="importarInput" accept=".json" style="display:none" onchange="importarFicha(event)">
-        <button onclick="document.getElementById('importarInput').click()">Importar Ficha</button>
-
-
-        <!--Para abrir o sistema em pdf-->
-        <a href="📋Lâmina dos Conjuradores - Sistema RPG 🎲.pdf" target="_blank" style="text-decoration: none;">
-          <button style="margin-top: 10px;">📖 Abrir Sistema (PDF)</button>
-        </a>
-        
-      </div>
-    </div>
-
-    <script>
+<script>
       // Função para atualizar Resistência e Energia
       function atualizarRE() {
         const vig = parseInt(document.getElementById("vig").value) || 0;
@@ -722,8 +700,80 @@
         "(Proprio)": {
           descricao: "Escreva sua descrição aqui, e o gasto do encantamento.\nGasto: (P.E)\nDuração: (Tempo)",
           gasto: 1
+        },
+
+        // encatamentos especiais ligados ao nome do personagem
+         // —— Encantamentos Especiais de Tempesta —— //
+        "Tempestade Devastadora (Tempesta)": {
+          descricao: "Conjura uma poderosa tempestade, lançando raios e trovões, causando destruição em um raio de 5 ações ao redor do conjurador.\nAcertando todos na área (aliados inclusos)\nDano: 2d8\nGasto: 5(P.E.)\nDuração: Uso\nDuração: 1d4 Rodadas (+8 P.E.)",
+          gasto: 5,
+          oculto: true
+        },
+        "Fluxo Elétrico (Tempesta)": {
+          descricao: "Concede ao conjurador a capacidade de se mover rapidamente, como se estivesse eletrificado, permitindo que ele tenha Duas ações de movimento.\n(Também concede vantagem nos testes de esquiva.)\nGasto: 5(P.E.)\nDuração: Cena (efeito acaba, se não conseguir se movimentar)",
+          gasto: 5,
+          oculto: true
+        },
+        "Vínculo estático (Tempesta)": {
+          descricao: " Consegue se translocar diretamente para sua lança em instantes.\nGasto: 4(P.E.)\nDuração: Uso (Ação livre)",
+          gasto: 4,
+          oculto: true
+        },
+        "Trovão Devastador (Tempesta)": {
+          descricao: "2d4 por ponto de Vigor do alvo. Gasto: 10 P.E. (Conjurar).",
+          gasto: 10,
+          oculto: true
+        },
+         // —— Encantamentos Especiais de MASSACRE ——//
+        "Opressão Massacrante (Massacre)": {
+          descricao: "Sua presença causa temor. Quem falhar tenta fugir; quem passar perde a ação de movimento.\nD.T. 15 (Vigor)\nGasto: 5 (P.E.)",
+          gasto: 5,
+          oculto: true
+        },
+        "Fim Inevitável (Massacre)": {
+          descricao: "Marca um alvo. Se ele tentar fugir, você aparece na frente e o ataca como ação livre.\nGasto: 5 (P.E.) por uso\nDuração: 1x por rodada",
+          gasto: 5,
+          oculto: true
+        },
+        "Recompor Carnificina (Massacre)": {
+          descricao: "Após eliminar um alvo, recupera 3d10+Ataque (Resistência) e 2d6 (Energia).\nGasto: 5 (P.E.)",
+          gasto: 5,
+          oculto: true
+        },
+        // —— Encantamentos Especiais de Sttela ——
+        "Desejo da Guerra (Sttela)": {
+          descricao: "Cria qualquer arma vista.\nGasto: 2/5 (P.E.)\nPreço: 1d4 de Resistência (normal/permanente)",
+          gasto: 2,
+          oculto: true
+        },
+        "Desejo da Morte (Sttela)": {
+          descricao: "Dano: 3d12 (Vida)\nGasto: 10 (P.E.) + 1d4 de Vida\nPreço: 2d6 (Resistência+Energia permanentes)",
+          gasto: 10,
+          oculto: true
+        },
+        "Desejo da Restauração (Sttela)": {
+          descricao: "Cura: 1d8+Conj ou 3d8+Conj\nGasto: 2/10 (P.E.)\nPreço: 1d4 / 2d4 de Energia",
+          gasto: 2,
+          oculto: true
+        },
+        "Desejo de Controle (Sttela)": {
+          descricao: "Concede controle sobre um alvo, forçando-o a realizar uma ação simple.\n(D.T. 15 de Vigor ou Conjurar)\nGasto: 5 (P.E.)\nDuração: 1d4 rodadas",
+          gasto: 5,
+          oculto: true
+        },
+        "Falso Desejo (Sttela)": {
+          descricao: "Cria uma ilusão do maior desejo do alvo.\nDesvantagem se ignorá-la.\nDuração: 1d4 turnos\nGasto: 3 (P.E.)\nPreço: 1d6 de Energia",
+          gasto: 3,
+          oculto: true  
+        },
+        // Encantamentos especiais Ciclo
+        "Repettição do Ciclo (Ciclo)": {
+          descricao: "A espiral do tem segue um ciclo insaviável, que tende se repetir.\nVocê consegue ver o que deve acontecer, mas você está além disso.\nPermite que você volte uma rodada.\nTudo vai acontecer igual, com exceção daquilo que você interferir.\nGasto: 10(P.E)\nDuração: Uso",
+          gasto: 10,
+          oculto: true
         }
-        };
+      };
+
 
 function adicionarEncantamento() {
   const container = document.getElementById("encantContainer");
@@ -732,22 +782,34 @@ function adicionarEncantamento() {
   block.className = "encant-block";
 
   const select = document.createElement("select");
+  const nomePersonagem = document.getElementById("nomePersonagem").value.toLowerCase();
+
   for (const key in encantamentosDisponiveis) {
-    const option = document.createElement("option");
-    option.value = key;
-    option.textContent = key;
-    select.appendChild(option);
+    const dados = encantamentosDisponiveis[key];
+    if (
+      !dados.oculto || (
+        (nomePersonagem.includes("tempesta") && key.toLowerCase().includes("tempesta")) ||
+        (nomePersonagem.includes("massacre") && key.toLowerCase().includes("massacre")) ||
+        (nomePersonagem.includes("sttela") && key.toLowerCase().includes("sttela")) ||
+        (nomePersonagem.includes("ciclo") && key.toLowerCase().includes("ciclo"))
+      )
+    ) {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = key;
+      select.appendChild(option);
+    }
   }
 
   const textarea = document.createElement("textarea");
   textarea.readOnly = (select.value !== "(Proprio)");
   textarea.placeholder = "Escreva a descrição do seu encantamento...";
-  textarea.value = encantamentosDisponiveis[select.value].descricao;
+  textarea.value = encantamentosDisponiveis[select.value]?.descricao || "";
 
   const botao = document.createElement("button");
   botao.textContent = "Usar Encantamento";
   botao.onclick = () => {
-    const gasto = encantamentosDisponiveis[select.value].gasto;
+    const gasto = encantamentosDisponiveis[select.value].gasto || 0;
     let energiaAtual = document.getElementById("energia").value.split("/").map(Number);
     if (energiaAtual[0] >= gasto) {
       energiaAtual[0] -= gasto;
@@ -759,13 +821,12 @@ function adicionarEncantamento() {
 
   select.onchange = () => {
     textarea.readOnly = (select.value !== "(Proprio)");
-    textarea.value = encantamentosDisponiveis[select.value].descricao;
+    textarea.value = encantamentosDisponiveis[select.value]?.descricao || "";
   };
 
   block.appendChild(select);
   block.appendChild(textarea);
   block.appendChild(botao);
-
   container.appendChild(block);
 }
 
@@ -940,6 +1001,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
     </script>
-
-  </body>
-</html>
+</body>
+</head></html>
