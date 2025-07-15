@@ -734,18 +734,18 @@
           gasto: 6,
           oculto: true  
         },
-         // —— Encantamentos Especiais de MASSACRE ——//
-        "Opressão Massacrante (Massacre)": {
+         // —— Encantamentos Especiais de Douglas ——//
+        "Opressão Massacrante (Douglas)": {
           descricao: "Sua presença causa temor. Quem falhar tenta fugir; quem passar perde a ação de movimento.\nD.T. 15 (Vigor)\nGasto: 5 (P.E.)",
           gasto: 5,
           oculto: true
         },
-        "Fim Inevitável (Massacre)": {
+        "Fim Inevitável (Douglas)": {
           descricao: "Marca um alvo. Se ele tentar fugir, você aparece na frente e o ataca como ação livre.\nGasto: 5 (P.E.) por uso\nDuração: 1x por rodada",
           gasto: 5,
           oculto: true
         },
-        "Recompor Carnificina (Massacre)": {
+        "Recompor Carnificina (Douglas)": {
           descricao: "Após eliminar um alvo, recupera 3d10+Ataque (Resistência) e 2d6 (Energia).\nGasto: 5 (P.E.)",
           gasto: 5,
           oculto: true
@@ -797,13 +797,13 @@
           gasto: 5,
           oculto: true
         },
-        // —— Encantamentos Especiais de Inveja —— //
-        "Inveja Incapacitante (Inveja)": {
+        // —— Encantamentos Especiais de leviatã —— //
+        "leviatã Incapacitante (leviatã)": {
           descricao: "Escolhe um alvo. Sempre que ele for melhor que você em um teste, sofre desvantagem na rodada seguinte.\nGasto: 3 (P.E.)\nDuração: 1d6 rodadas",
           gasto: 3,
           oculto: true
         },
-        "Chamas da Inveja (Inveja)": {
+        "Chamas da leviatã (leviatã)": {
           descricao: "Enquanto ativa, seus ataques causam +1d6 de dano para cada aliado com menos Resistência que você.\nGasto: 5 (P.E.)\nDuração: 1d6 rodadas",
           gasto: 5,
           oculto: true
@@ -825,10 +825,10 @@ function adicionarEncantamento() {
     if (
       !dados.oculto || (
         (nomePersonagem.includes("tempesta") && key.toLowerCase().includes("tempesta")) ||
-        (nomePersonagem.includes("massacre") && key.toLowerCase().includes("massacre")) ||
+        (nomePersonagem.includes("Douglas") && key.toLowerCase().includes("Douglas")) ||
         (nomePersonagem.includes("sttela") && key.toLowerCase().includes("sttela")) ||
         (nomePersonagem.includes("ciclo") && key.toLowerCase().includes("ciclo")) ||
-        (nomePersonagem.includes("inveja") && key.toLowerCase().includes("inveja"))
+        (nomePersonagem.includes("leviatã") && key.toLowerCase().includes("leviatã"))
       )
     ) {
       const option = document.createElement("option");
