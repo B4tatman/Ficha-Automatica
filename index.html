@@ -724,6 +724,16 @@
           gasto: 10,
           oculto: true
         },
+        "Energia Tempestuosa (Tempesta)": {
+          descricao: "Pode sobrecarregar o toque com energia volátil.\nDano: +1d4 (por ponto gasto)\nGasto: 2 + 1(até metade de Conjurar+Vigor)\nDuração: Uso",
+          gasto: 2,
+          oculto: true
+        },
+        "Marca Carmesim (Tempesta)": {
+          descricao: "A guerra é um pacto de sangue e você carrega o selo original\nInvoca o selo de sua linhagem para intensificar a guerra ao seu redor.\nAtaques aliados causam +1d8 contra o alvo.\nGasto: 6 (P.E.) + 1 Vida\nDuração: Cena",
+          gasto: 6,
+          oculto: true  
+        },
          // —— Encantamentos Especiais de MASSACRE ——//
         "Opressão Massacrante (Massacre)": {
           descricao: "Sua presença causa temor. Quem falhar tenta fugir; quem passar perde a ação de movimento.\nD.T. 15 (Vigor)\nGasto: 5 (P.E.)",
@@ -771,6 +781,32 @@
           descricao: "A espiral do tem segue um ciclo insaviável, que tende se repetir.\nVocê consegue ver o que deve acontecer, mas você está além disso.\nPermite que você volte uma rodada.\nTudo vai acontecer igual, com exceção daquilo que você interferir.\nGasto: 10(P.E)\nDuração: Uso",
           gasto: 10,
           oculto: true
+        },
+        "Ecos da Repetição (Ciclo)": {
+          descricao: "Cria uma duplicata de um alvo enfrentado. A duplicata tem metade dos atributos, 1 ação padrão e dano igual ao original.\nVida = Conjurar * 2\nGasto: 5 P.E.\nDuração: Cena\nLimite: igual ao Conjurar",
+          gasto: 5,
+          oculto: true
+        },
+        "Infinito (Ciclo)": {
+          descricao: "Funde duplicatas em um amálgama espiral para realizar um ataque.\nDano: +3d8 por duplicata usada\nGasto: 3 (P.E.) + número de duplicatas escolhidas\nDuração: Uso",
+          gasto: 3,
+          oculto: true
+        },
+        "Vórtice Espiral(Ciclo)": {
+          descricao: "Atrai todos num raio de 3 ações até você e causa 3d6 de dano +3d8 por duplicata existente.\nGasto: 5 (P.E.)\nDuração: Uso",
+          gasto: 5,
+          oculto: true
+        },
+        // —— Encantamentos Especiais de Inveja —— //
+        "Inveja Incapacitante (Inveja)": {
+          descricao: "Escolhe um alvo. Sempre que ele for melhor que você em um teste, sofre desvantagem na rodada seguinte.\nGasto: 3 (P.E.)\nDuração: 1d6 rodadas",
+          gasto: 3,
+          oculto: true
+        },
+        "Chamas da Inveja (Inveja)": {
+          descricao: "Enquanto ativa, seus ataques causam +1d6 de dano para cada aliado com menos Resistência que você.\nGasto: 5 (P.E.)\nDuração: 1d6 rodadas",
+          gasto: 5,
+          oculto: true
         }
       };
 
@@ -791,7 +827,8 @@ function adicionarEncantamento() {
         (nomePersonagem.includes("tempesta") && key.toLowerCase().includes("tempesta")) ||
         (nomePersonagem.includes("massacre") && key.toLowerCase().includes("massacre")) ||
         (nomePersonagem.includes("sttela") && key.toLowerCase().includes("sttela")) ||
-        (nomePersonagem.includes("ciclo") && key.toLowerCase().includes("ciclo"))
+        (nomePersonagem.includes("ciclo") && key.toLowerCase().includes("ciclo")) ||
+        (nomePersonagem.includes("inveja") && key.toLowerCase().includes("inveja"))
       )
     ) {
       const option = document.createElement("option");
